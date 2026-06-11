@@ -8,14 +8,16 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --ink: #0f0e0c;
-    --ink-muted: #5a5751;
-    --ink-faint: #b0ada6;
-    --bg: #faf9f7;
+    --ink: #11203f;
+    --ink-muted: #4a5568;
+    --ink-faint: #9aa6bd;
+    --bg: #f5f7fb;
     --bg-card: #ffffff;
-    --accent: #c0392b;
-    --accent-light: #f9eeec;
-    --border: #e8e5e0;
+    --accent: #0c5cb9;
+    --accent-dark: #071e82;
+    --accent-light: #e7eff9;
+    --bronze: #c49a4a;
+    --border: #e2e6ee;
     --serif: 'Playfair Display', Georgia, serif;
     --sans: 'DM Sans', system-ui, sans-serif;
   }
@@ -28,15 +30,14 @@
   .nav-links a { text-decoration: none; color: var(--ink-muted); font-size: 13px; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
   .nav-links a:hover { color: var(--accent); }
 
-  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 80vh; }
-  .hero-left { background: var(--ink); padding: 5rem 3.5rem; display: flex; flex-direction: column; justify-content: flex-end; position: relative; overflow: hidden; }
-  .hero-left::before { content: ''; position: absolute; top: -80px; right: -80px; width: 300px; height: 300px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.07); }
-  .hero-left::after { content: ''; position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); }
-  .hero-tag { display: inline-block; background: var(--accent); color: #fff; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 12px; border-radius: 2px; margin-bottom: 1.5rem; }
+  .hero-banner { position: relative; background-image: linear-gradient(95deg, rgba(7,20,60,0.90) 0%, rgba(7,20,60,0.60) 52%, rgba(11,30,99,0.28) 100%), url('New_LinkedIn_Banner.png'); background-size: cover; background-position: center; }
+  .hero-inner { position: relative; max-width: 1000px; margin: 0 auto; width: 100%; min-height: clamp(360px, 46vw, 520px); padding: clamp(3rem,6vw,5.5rem) 2.5rem clamp(2.5rem,5vw,4rem); display: flex; flex-direction: column; justify-content: flex-end; }
+  .hero-tag { display: inline-block; align-self: flex-start; background: var(--bronze); color: #2a1e06; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 12px; border-radius: 2px; margin-bottom: 1.5rem; }
   .hero-name { font-family: var(--serif); font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 0.5rem; }
-  .hero-title { font-family: var(--serif); font-size: 1.2rem; font-style: italic; color: rgba(255,255,255,0.5); margin-bottom: 2rem; }
-  .hero-desc { font-size: 14px; color: rgba(255,255,255,0.55); max-width: 380px; line-height: 1.8; }
-  .hero-right { background: var(--accent-light); padding: 5rem 3.5rem; display: flex; flex-direction: column; justify-content: center; gap: 2.5rem; }
+  .hero-title { font-family: var(--serif); font-size: 1.2rem; font-style: italic; color: rgba(255,255,255,0.78); margin-bottom: 1.5rem; }
+  .hero-desc { font-size: 14px; color: rgba(255,255,255,0.85); max-width: 440px; line-height: 1.8; margin-bottom: 2rem; }
+  .stats-band { background: var(--accent-light); border-bottom: 1px solid var(--border); }
+  .stats-inner { max-width: 1000px; margin: 0 auto; padding: 2.25rem 2.5rem; display: flex; gap: 3rem; flex-wrap: wrap; align-items: center; }
   .stat-item { border-left: 3px solid var(--accent); padding-left: 1.25rem; }
   .stat-num { font-family: var(--serif); font-size: 2.8rem; font-weight: 700; color: var(--ink); line-height: 1; }
   .stat-label { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-top: 4px; }
@@ -46,6 +47,10 @@
   .btn-dark:hover { background: #2c2a26; }
   .btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--border); }
   .btn-outline:hover { border-color: var(--ink); }
+  .btn-accent { background: var(--accent); color: #fff; }
+  .btn-accent:hover { background: var(--accent-dark); }
+  .btn-outline-light { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.45); }
+  .btn-outline-light:hover { border-color: #fff; background: rgba(255,255,255,0.10); }
 
   section { padding: 5rem 2.5rem; max-width: 1000px; margin: 0 auto; }
   .section-eyebrow { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem; }
@@ -66,8 +71,8 @@
   .pub-authors { font-size: 13px; color: var(--ink-muted); margin-bottom: 3px; }
   .pub-journal { font-size: 13px; color: var(--ink-muted); font-style: italic; }
   .pub-badge { display: inline-block; font-size: 10px; font-weight: 500; padding: 2px 7px; border-radius: 2px; margin-left: 8px; vertical-align: middle; }
-  .badge-journal { background: #e8f4ec; color: #2d6a3f; }
-  .badge-report { background: #eef1fb; color: #2d3f8c; }
+  .badge-journal { background: #e6f1fb; color: #0c447c; }
+  .badge-report { background: #e1f5ee; color: #0f6e56; }
 
   .talk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
   .talk-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
@@ -88,8 +93,8 @@
   footer { border-top: 1px solid var(--border); padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--ink-faint); max-width: 1000px; margin: 0 auto; }
 
   @media (max-width: 700px) {
-    .hero { grid-template-columns: 1fr; }
-    .hero-left, .hero-right { padding: 3rem 1.5rem; }
+    .stats-inner { gap: 1.5rem 2.5rem; padding: 1.75rem 1.25rem; }
+    .hero-inner { padding-left: 1.5rem; padding-right: 1.5rem; }
     nav { padding: 0 1rem; }
     .nav-links { gap: 1rem; }
     section { padding: 3rem 1.25rem; }
@@ -110,35 +115,36 @@
 </nav>
 
 <!-- HERO -->
-<div class="hero">
-  <div class="hero-left">
+<header class="hero-banner">
+  <div class="hero-inner">
     <span class="hero-tag">Researcher</span>
     <h1 class="hero-name">Jillian A.<br>Emerson, PhD</h1>
     <p class="hero-title">Maternal Health Research</p>
     <p class="hero-desc">Advancing evidence-based practice in maternal and child nutrition, mental health, and global health through rigorous research and cross-disciplinary collaboration.</p>
-  </div>
-  <div class="hero-right">
-    <div>
-      <p style="font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:1.5rem;">Research at a glance</p>
-      <div class="stat-item" style="margin-bottom:1.75rem;">
-        <div class="stat-num">12</div>
-        <div class="stat-label">Peer-Reviewed Publications</div>
-      </div>
-      <div class="stat-item" style="margin-bottom:1.75rem;">
-        <div class="stat-num">10</div>
-        <div class="stat-label">Presentations</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">6+</div>
-        <div class="stat-label">Countries of Research</div>
-      </div>
-    </div>
     <div class="hero-cta">
-      <a href="#publications" class="btn btn-dark">View Publications</a>
-      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      <a href="#publications" class="btn btn-accent">View Publications</a>
+      <a href="#contact" class="btn btn-outline-light">Get in Touch</a>
     </div>
   </div>
-</div>
+</header>
+
+<!-- STATS -->
+<section class="stats-band" style="max-width:100%;padding:0;margin:0;">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">12</div>
+      <div class="stat-label">Peer-Reviewed Publications</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">10</div>
+      <div class="stat-label">Presentations</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">6+</div>
+      <div class="stat-label">Countries of Research</div>
+    </div>
+  </div>
+</section>
 
 <!-- ABOUT -->
 <section id="about">
